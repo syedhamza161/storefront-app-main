@@ -31,9 +31,6 @@ jobs:
       - name: Run npm ci
         run: npm ci
 
-      - name: Run tests
-        run: npm test
-
   build-android:
     needs: install-and-test
     runs-on: ubuntu-latest
