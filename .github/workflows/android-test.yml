@@ -35,36 +35,10 @@ jobs:
     needs: install-and-test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-java@v3
+          with:
             distribution: 'temurin'
             java-version: '17'
             cache: 'gradle'
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v2
-        with:
-            path: ~/.gradle/wrapper
-            key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-    
-      - name: Cache Gradle Dependencies
-        uses: actions/cache@v2
-        with:
-            path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-            restore-keys: |
-              ${{ runner.os }}-gradle-caches-
-    
-      - name: Make Gradlew Executable
-        run: cd android && chmod +x ./gradlew
-    
-      - name: Build Android App Bundle
-        run: |
-            cd android && ./gradlew build --no-daemon
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release.apk
-          path: android/app/build/apk.txt
+        - run: ./gradlew build --no-daemon
