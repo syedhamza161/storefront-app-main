@@ -47,4 +47,4 @@ jobs:
           run: cd android && chmod +x ./gradlew
         
         - name: Build Android App Bundle
-          run: cd android && ./gradlew build --no-daemon
+          run: cd android && ./gradlew bundleRelease --no-daemon
