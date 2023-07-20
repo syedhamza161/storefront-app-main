@@ -38,10 +38,9 @@ jobs:
             distribution: temurin
             java-version: 11
               
-        - name: Setup Gradle  
+        - name: Setup Gradle and build Android  
           uses: gradle/gradle-build-action@v2
           with:
             gradle-version: 7.3.1
-        
-        - name: Build Android App Bundle
-          run: cd android && ./gradlew build
+            arguments: build
+            build-root-directory: android
