@@ -1,0 +1,23 @@
+name: Clear Cache
+
+on:
+  workflow_dispatch:
+    inputs:
+      cache-key-prefix:
+        description: 'Prefix of the cache key to delete'
+        required: true
+
+jobs:
+  clear-cache:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clear Cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          node_modules  # Adjust this path to include other directories you want to clear from the cache
+          # Add any other directories you want to clear from the cache
+        key: ${{ github.sha }}-${{ inputs.cache-key-prefix }}
+        restore-keys: |
+          ${{ github.sha }}-${{ inputs.cache-key-prefix }}
