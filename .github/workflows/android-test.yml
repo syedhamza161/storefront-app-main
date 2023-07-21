@@ -2,58 +2,39 @@ name: react-native-android-build-apk
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  install-and-test:
+  build-android:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      
-      - name: Install dependencies
+      - name: Install npm dependencies
         run: npm install
 
-      - name: Run npm ci
-        run: npm ci
+      - name: Setting JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
 
-  build-android:
-    needs: install-and-test
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout project sources
-          uses: actions/checkout@v3
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.3.1
 
-        - name: Setup JDK       
-          uses: actions/setup-java@v3
-          with:
-            distribution: temurin
-            java-version: 11
+      - name: Make gradlew executable
+        run: chmod +x ./android/gradlew
 
-        - name: Make Gradlew Executable
-          run: cd android && chmod +x ./gradlew
-              
-        - name: Setup Gradle and build Android  
-          uses: gradle/gradle-build-action@v2
-          with:
-            gradle-version: 7.3.1
-            
-        - name: make gradlew executable
-          run: chmod +x ./android/gradlew
+      - name: Build Android Release
+        run: cd android && ./gradlew assembleRelease
 
-        - name: Bundle RN Android assets
-          run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-        
-        - name: Clean up after bundling
-          run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
-  
-        - name: Build android APK
-          run: cd ./android && ./gradlew clean app:assembleRelease -x bundleReleaseJsAndAssets
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/
