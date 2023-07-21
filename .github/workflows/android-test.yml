@@ -42,5 +42,9 @@ jobs:
           uses: gradle/gradle-build-action@v2
           with:
             gradle-version: 7.3.1
-            arguments: build
-            build-root-directory: android
+
+        - name: Make Gradlew Executable
+          run: cd android && chmod +x ./gradlew
+        
+        - name: Build Android App Bundle
+          run: cd android && ./gradlew clean && ./gradlew bundleRelease --no-daemon  
