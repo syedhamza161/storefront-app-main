@@ -8,9 +8,9 @@ on:
 
 env:
   APP_CENTER_TOKEN: ${{ secrets.ANDROID_DEV }}  
-  APP_NAME: ${{ 'StorefrontApp-android/ANDROID_DEV'  }}  
+  APP_NAME: ${{ 'StorefrontApp-android/ANDROID_DEV' }}  
   TESTING_GROUP: ${{  'ANDROID_DEV_GROUP'  }} 
-  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/release/'  }} 
+  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/release/app-release-unsigned.apk'  }} 
 
 jobs:
   install-and-test:
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
 
       - name: Upload to App Center
         uses: wzieba/AppCenter-Github-Action@v1
