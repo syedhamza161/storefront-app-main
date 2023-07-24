@@ -10,7 +10,7 @@ jobs:
   install-and-test:
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install npm dependencies
         run: |
           npm install
@@ -53,7 +53,7 @@ jobs:
 
       - name: Build app
         run: |       
-          xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -allowProvisioningUpdates
+          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -allowProvisioningUpdates
           xcodebuild -exportArchive -archivePath ./StorefrontApp.xcarchive -exportPath . -exportOptionsPlist StorefrontApp/Info.plist
           mv StorefrontApp.ipa ../StorefrontApp.ipa
 
