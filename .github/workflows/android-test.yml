@@ -10,7 +10,7 @@ env:
   APP_CENTER_TOKEN: ${{ secrets.ANDROID_DEV }}  
   APP_NAME: ${{ 'StorefrontApp-android/ANDROID_DEV' }}  
   TESTING_GROUP: ${{  'ANDROID_DEV_GROUP'  }} 
-  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/release/app-release-unsigned.apk'  }} 
+  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/release/app-release.apk'  }} 
 
 jobs:
   install-and-test:
