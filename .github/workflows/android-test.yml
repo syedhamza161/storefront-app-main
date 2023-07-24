@@ -53,7 +53,7 @@ jobs:
 
       - name: Build app
         run: |       
-          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -allowProvisioningUpdates
+          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO
           xcodebuild -exportArchive -archivePath ./StorefrontApp.xcarchive -exportPath . -exportOptionsPlist StorefrontApp/Info.plist
           mv StorefrontApp.ipa ../StorefrontApp.ipa
 
