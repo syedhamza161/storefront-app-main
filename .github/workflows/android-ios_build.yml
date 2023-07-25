@@ -41,7 +41,7 @@ jobs:
     needs: install-and-test
     runs-on: macos-latest
     steps: 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
   
       - name: Install npm dependencies
         run: npm install
@@ -52,7 +52,7 @@ jobs:
   
       - name: Build app
         run: |       
-          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive
+          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           xcodebuild -exportArchive -archivePath ./ios/StorefrontApp.xcarchive -exportPath . -exportOptionsPlist ios/StorefrontApp/Info.plist
           mv ios/StorefrontApp.ipa ../StorefrontApp.ipa
   
