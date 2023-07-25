@@ -53,8 +53,8 @@ jobs:
       - name: Build app
         run: |       
           cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-          xcodebuild -exportArchive -archivePath ./ios/StorefrontApp.xcarchive -exportPath . -exportOptionsPlist ios/StorefrontApp/Info.plist
-          mv ios/StorefrontApp.ipa ../StorefrontApp.ipa
+          xcodebuild -exportArchive -archivePath ./ios/StorefrontApp.xcarchive -exportPath . -exportOptionsPlist StorefrontApp/Info.plist
+          mv StorefrontApp.ipa ../StorefrontApp.ipa
   
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
