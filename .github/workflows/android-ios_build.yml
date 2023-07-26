@@ -52,7 +52,7 @@ jobs:
   
       - name: Build app
         run: |       
-          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -allowProvisioningUpdates CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           xcodebuild -exportArchive -archivePath StorefrontApp.xcarchive -exportPath . -exportOptionsPlist StorefrontApp/Info.plist -teamID ""
           mv StorefrontApp.ipa ../StorefrontApp.ipa
   
