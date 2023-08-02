@@ -63,6 +63,7 @@ jobs:
         with:
          path: ./ios/Pods
          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+         fail-on-cache-miss: true
         
       - name: Install pod dependencies
         run: |
