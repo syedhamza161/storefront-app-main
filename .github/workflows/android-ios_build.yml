@@ -57,14 +57,14 @@ jobs:
         run: npm install
 
       - name: Cache Pods
-        if: runner.os == 'macOS'
         uses: actions/cache@v3
         id: pods-cache
         with:
-         path: ./ios/Pods
-         key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
-         fail-on-cache-miss: true
-         debug: true
+          path: ./ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+        
         
       - name: Install pod dependencies
         run: |
