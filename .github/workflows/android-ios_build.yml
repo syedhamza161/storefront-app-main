@@ -62,15 +62,15 @@ jobs:
           path: ios
           key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-pods-
-      
-      - name: Build app
-        run: |       
-          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -destination 'generic/platform=iOS'        
+            ${{ runner.os }}-pods-       
         
       - name: Install pod dependencies
         run: |
           cd ios && pod install
+
+      - name: Build app
+        run: |       
+          cd ios && xcodebuild -workspace StorefrontApp.xcworkspace -scheme StorefrontApp archive -archivePath StorefrontApp.xcarchive -destination 'generic/platform=iOS' 
   
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
