@@ -56,13 +56,13 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Pods Cache
+      - name: Cache Pods
+        if: runner.os == 'macOS'
         uses: actions/cache@v3
+        id: pods-cache
         with:
-          path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods- 
+         path: ./ios/Pods
+         key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
         
       - name: Install pod dependencies
         run: |
